@@ -1,10 +1,13 @@
 var playerOne;
 var playerTwo;
 var GRAVITY = 0.3;
+var GRAVITY2 = 0.3;
 
 var STAGE_BOTTOM;
 var STAGE_LEFT;
 var STAGE_RIGHT;
+
+
 
 function setup(){
 	createCanvas(800, 800);
@@ -12,9 +15,17 @@ function setup(){
 	var bg = loadImage('assets/stagebackground.png');
 	
 	//stage
+	stage = new Group();
+	
 	STAGE_BOTTOM = createSprite(400, 600, 700, 50);
+	stage.add(STAGE_BOTTOM);
+	
 	STAGE_LEFT = createSprite(200, 300, 100, 50);
+	stage.add(STAGE_LEFT);
+	
 	STAGE_RIGHT = createSprite(600, 300, 100, 50);
+	stage.add(STAGE_RIGHT);
+	
 	//playerOne
 	var playerOneImg = loadImage('assets/player_One.png');
 	playerOne = createSprite(400, 400);
@@ -78,9 +89,9 @@ function draw(){
 			playerOne.velocity.x = 0;
 		}
 		
-	//bruh cat gravity
+	//playerTwo gravity
 		//gravity
-		playerTwo.velocity.y += GRAVITY;
+		playerTwo.velocity.y += GRAVITY2;
 		
 		//up
 		if(keyWentDown('w')){
@@ -112,5 +123,18 @@ function draw(){
 			playerTwo.velocity.x = 0;
 		}
 	
-
+	
+		//gravity & collision fixes
+		if(playerOne.overlap(stage)){
+			GRAVITY = 0;
+		}else{
+			GRAVITY = 0.3;
+		}
+		
+		if(playerTwo.overlap(stage)){
+			GRAVITY2 = 0;
+		}else{
+			GRAVITY2 = 0.3;
+		}
+	
 }

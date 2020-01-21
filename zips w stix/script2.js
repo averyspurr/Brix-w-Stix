@@ -1,5 +1,5 @@
-var cheems;
-var bruhCat;
+var playerOne;
+var playerTwo;
 var GRAVITY = 0.3;
 
 var STAGE_BOTTOM;
@@ -13,15 +13,17 @@ function setup(){
 	
 	//stage
 	STAGE_BOTTOM = createSprite(400, 600, 700, 50);
-	//cheems
-	var cheemsImg = loadImage('assets/cheems.png');
-	cheems = createSprite(400, 400);
-	cheems.addImage(cheemsImg);
+	STAGE_LEFT = createSprite(200, 300, 100, 50);
+	STAGE_RIGHT = createSprite(600, 300, 100, 50);
+	//playerOne
+	var playerOneImg = loadImage('assets/player_One.png');
+	playerOne = createSprite(400, 400);
+	playerOne.addImage(playerOneImg);
 	
 	//bruh cat
-	var bruhImg = loadImage('assets/bruhcat.png');
-	bruhCat = createSprite(200, 400);
-	bruhCat.addImage(bruhImg);
+	var bruhImg = loadImage('assets/player_Two.png');
+	playerTwo = createSprite(200, 400);
+	playerTwo.addImage(bruhImg);
 	
 	
 }
@@ -31,72 +33,83 @@ function draw(){
 	
 	drawSprites();
 	
-	//cheems contorls
+	//collisions
+	//playerOne
+	playerOne.collide(STAGE_BOTTOM);
+	playerOne.collide(STAGE_RIGHT);
+	playerOne.collide(STAGE_LEFT);
+	
+	playerTwo.collide(STAGE_BOTTOM);
+	playerTwo.collide(STAGE_RIGHT);
+	playerTwo.collide(STAGE_LEFT);
+	
+	
+	//playerOne contorls
 		//gravity
-		cheems.velocity.y += GRAVITY;
+		playerOne.velocity.y += GRAVITY;
 		
 		//up
 		if(keyWentDown(UP_ARROW)){
-			cheems.velocity.y = -5;
+			playerOne.velocity.y = -5;
 		}
 
 		
 		//down
 		if(keyWentDown(DOWN_ARROW)){
-			cheems.velocity.y = 5;
+			playerOne.velocity.y = 5;
 		}
 
 		
 		//left
 		if(keyWentDown(LEFT_ARROW)){
-			cheems.velocity.x = -5;
-			cheems.mirrorX(-1);
+			playerOne.velocity.x = -5;
+			playerOne.mirrorX(-1);
 		}
 		if(keyWentUp(LEFT_ARROW)){
-			cheems.velocity.x = 0;
+			playerOne.velocity.x = 0;
 		}
 		
 		//right
 		if(keyWentDown(RIGHT_ARROW)){
-			cheems.velocity.x = 5;
-			cheems.mirrorX(1);
+			playerOne.velocity.x = 5;
+			playerOne.mirrorX(1);
 		}
 		if(keyWentUp(RIGHT_ARROW)){
-			cheems.velocity.x = 0;
+			playerOne.velocity.x = 0;
 		}
 		
 	//bruh cat gravity
 		//gravity
-		bruhCat.velocity.y += GRAVITY;
+		playerTwo.velocity.y += GRAVITY;
 		
 		//up
 		if(keyWentDown('w')){
-			bruhCat.velocity.y = -5;
+			playerTwo.velocity.y = -5;
 		}
 
 		
 		//down
 		if(keyWentDown('s')){
-			bruhCat.velocity.y = 5;
+			playerTwo.velocity.y = 5;
 		}
 
 		
 		//left
 		if(keyWentDown('a')){
-			bruhCat.velocity.x = -5;
-			bruhCat.mirrorX(-1);
+			playerTwo.velocity.x = -5;
+			playerTwo.mirrorX(-1);
 		}
 		if(keyWentUp('a')){
-			bruhCat.velocity.x = 0;
+			playerTwo.velocity.x = 0;
 		}
 		
 		//right
 		if(keyWentDown('d')){
-			bruhCat.velocity.x = 5;
-			bruhCat.mirrorX(1);
+			playerTwo.velocity.x = 5;
+			playerTwo.mirrorX(1);
 		}
 		if(keyWentUp('d')){
-			bruhCat.velocity.x = 0;
+			playerTwo.velocity.x = 0;
 		}
 	
 

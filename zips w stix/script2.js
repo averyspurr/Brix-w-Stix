@@ -13,10 +13,11 @@ function setup(){
 	createCanvas(800, 800);
 	
 	var bg = loadImage('assets/stagebackground.png');
+	//groups
+	stage = new Group();
+	players = new Group();
 	
 	//stage
-	stage = new Group();
-	
 	STAGE_BOTTOM = createSprite(400, 600, 700, 50);
 	stage.add(STAGE_BOTTOM);
 	
@@ -28,14 +29,15 @@ function setup(){
 	
 	//playerOne
 	var playerOneImg = loadImage('assets/player_One.png');
-	playerOne = createSprite(400, 400);
+	playerOne = createSprite(600, 400);
 	playerOne.addImage(playerOneImg);
+	players.add(playerOne);
 	
-	//bruh cat
+	//playerTwo
 	var bruhImg = loadImage('assets/player_Two.png');
 	playerTwo = createSprite(200, 400);
 	playerTwo.addImage(bruhImg);
-	
+	players.add(playerTwo);
 	
 }
 
@@ -46,13 +48,13 @@ function draw(){
 	
 	//collisions
 	//playerOne
-	playerOne.collide(STAGE_BOTTOM);
-	playerOne.collide(STAGE_RIGHT);
-	playerOne.collide(STAGE_LEFT);
+	playerOne.collide(stage);
+	playerOne.displace(playerTwo);
 	
-	playerTwo.collide(STAGE_BOTTOM);
-	playerTwo.collide(STAGE_RIGHT);
-	playerTwo.collide(STAGE_LEFT);
+	//playerTwo
+	playerTwo.collide(stage);
+	playerTwo.displace(playerOne);
+	
 	
 	
 	//playerOne contorls
@@ -73,20 +75,20 @@ function draw(){
 		
 		//left
 		if(keyWentDown(LEFT_ARROW)){
-			playerOne.velocity.x = -5;
+			playerOne.velocity.x += -5;
 			playerOne.mirrorX(-1);
 		}
 		if(keyWentUp(LEFT_ARROW)){
-			playerOne.velocity.x = 0;
+			playerOne.velocity.x -= -5;
 		}
 		
 		//right
 		if(keyWentDown(RIGHT_ARROW)){
-			playerOne.velocity.x = 5;
+			playerOne.velocity.x += 5;
 			playerOne.mirrorX(1);
 		}
 		if(keyWentUp(RIGHT_ARROW)){
-			playerOne.velocity.x = 0;
+			playerOne.velocity.x -= 5;
 		}
 		
 	//playerTwo gravity
@@ -107,31 +109,31 @@ function draw(){
 		
 		//left
 		if(keyWentDown('a')){
-			playerTwo.velocity.x = -5;
+			playerTwo.velocity.x += -5;
 			playerTwo.mirrorX(-1);
 		}
 		if(keyWentUp('a')){
-			playerTwo.velocity.x = 0;
+			playerTwo.velocity.x -= -5;
 		}
 		
 		//right
 		if(keyWentDown('d')){
-			playerTwo.velocity.x = 5;
+			playerTwo.velocity.x += 5;
 			playerTwo.mirrorX(1);
 		}
 		if(keyWentUp('d')){
-			playerTwo.velocity.x = 0;
+			playerTwo.velocity.x -= 5;
 		}
 	
 	
 		//gravity & collision fixes
-		if(playerOne.overlap(stage)){
+		if(playerOne.overlap(stage) || playerOne.overlap(players)){
 			GRAVITY = 0;
 		}else{
 			GRAVITY = 0.3;
 		}
 		
-		if(playerTwo.overlap(stage)){
+		if(playerTwo.overlap(stage) || playerTwo.overlap(players)){
 			GRAVITY2 = 0;
 		}else{
 			GRAVITY2 = 0.3;

@@ -127,13 +127,13 @@ function draw(){
 	
 	
 		//gravity & collision fixes
-		if(playerOne.overlap(stage) || playerOne.overlap(players)){
+		if(playerOne.overlap(stage) || ((playerTwo.overlap(stage) || playerOne.overlap(stage)) && playerOne.overlap(players))){
 			GRAVITY = 0;
 		}else{
 			GRAVITY = 0.3;
 		}
 		
-		if(playerTwo.overlap(stage) || playerTwo.overlap(players)){
+		if(playerTwo.overlap(stage) || ((playerTwo.overlap(stage) || playerOne.overlap(stage)) && playerTwo.overlap(players))){
 			GRAVITY2 = 0;
 		}else{
 			GRAVITY2 = 0.3;

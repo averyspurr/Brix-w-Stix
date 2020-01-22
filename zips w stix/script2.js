@@ -1,5 +1,7 @@
 var playerOne;
 var playerTwo;
+var stix1;
+var stix2;
 var GRAVITY = 0.3;
 var GRAVITY2 = 0.3;
 
@@ -16,6 +18,7 @@ function setup(){
 	//groups
 	stage = new Group();
 	players = new Group();
+	stix = new Group();
 	
 	//stage
 	STAGE_BOTTOM = createSprite(400, 600, 700, 50);
@@ -32,12 +35,26 @@ function setup(){
 	playerOne = createSprite(600, 400);
 	playerOne.addImage(playerOneImg);
 	players.add(playerOne);
+
+	//stix1
+	var stixImg = loadImage('assets/stix.png');
+	stix1 = createSprite(600, 400);
+	stix1.addImage(stixImg);
+	stix.add(stix1);
 	
 	//playerTwo
 	var bruhImg = loadImage('assets/player_Two.png');
 	playerTwo = createSprite(200, 400);
 	playerTwo.addImage(bruhImg);
 	players.add(playerTwo);
+	
+	//stix2
+	var stixImg = loadImage('assets/stix.png');
+	stix2 = createSprite(200, 400);
+	stix2.addImage(stixImg);
+	stix.add(stix2);
+	
+	
 	
 }
 
@@ -127,13 +144,13 @@ function draw(){
 	
 	
 		//gravity & collision fixes
-		if(playerOne.overlap(stage) || ((playerTwo.overlap(stage) || playerOne.overlap(stage)) && playerOne.overlap(players))){
+		if(playerOne.overlap(stage) || playerOne.overlap(players)){
 			GRAVITY = 0;
 		}else{
 			GRAVITY = 0.3;
 		}
 		
-		if(playerTwo.overlap(stage) || ((playerTwo.overlap(stage) || playerOne.overlap(stage)) && playerTwo.overlap(players))){
+		if(playerTwo.overlap(stage) || playerTwo.overlap(players)){
 			GRAVITY2 = 0;
 		}else{
 			GRAVITY2 = 0.3;

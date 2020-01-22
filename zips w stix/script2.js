@@ -1,12 +1,15 @@
 var playerOne;
-var playerTwo;
 var stix1;
+var hitOne;
 var sOffOne = -42;
-var cOffOne;
-var stix2;
-var sOffTwo = 42;
-var cOffTwo;
+var cOffOne = 23;
 var GRAVITY = 0.3;
+
+var playerTwo;
+var stix2;
+var hitTwo;
+var sOffTwo = 42;
+var cOffTwo = -23;
 var GRAVITY2 = 0.3;
 
 var STAGE_BOTTOM;
@@ -20,43 +23,50 @@ function setup(){
 	
 	var bg = loadImage('assets/stagebackground.png');
 	//groups
-	stage = new Group();
-	players = new Group();
-	stix = new Group();
+		stage = new Group();
+		players = new Group();
+		stix = new Group();
 	
 	//stage
-	STAGE_BOTTOM = createSprite(400, 600, 700, 50);
-	stage.add(STAGE_BOTTOM);
-	
-	STAGE_LEFT = createSprite(200, 300, 100, 50);
-	stage.add(STAGE_LEFT);
-	
-	STAGE_RIGHT = createSprite(600, 300, 100, 50);
-	stage.add(STAGE_RIGHT);
+		STAGE_BOTTOM = createSprite(400, 600, 700, 50);
+		stage.add(STAGE_BOTTOM);
+		
+		STAGE_LEFT = createSprite(200, 300, 100, 50);
+		stage.add(STAGE_LEFT);
+		
+		STAGE_RIGHT = createSprite(600, 300, 100, 50);
+		stage.add(STAGE_RIGHT);
 	
 	//playerOne
-	var playerOneImg = loadImage('assets/player_One.png');
-	playerOne = createSprite(600, 400);
-	playerOne.addImage(playerOneImg);
-	players.add(playerOne);
+		var playerOneImg = loadImage('assets/player_One.png');
+		playerOne = createSprite(600, 400);
+		playerOne.addImage(playerOneImg);
+		players.add(playerOne);
+	
+	//back hit boxes
+		//one
+		hitOne = createSprite(600, 400, 0, 0);
+		
+		//two
+		hitTwo = createSprite(200, 400, 0, 0);
 
 	//stix1
-	var stixImg = loadImage('assets/stix.png');
-	stix1 = createSprite(600, 400);
-	stix1.addImage(stixImg);
-	stix.add(stix1);
+		var stixImg = loadImage('assets/stix.png');
+		stix1 = createSprite(600, 400);
+		stix1.addImage(stixImg);
+		stix.add(stix1);
 	
 	//playerTwo
-	var bruhImg = loadImage('assets/player_Two.png');
-	playerTwo = createSprite(200, 400);
-	playerTwo.addImage(bruhImg);
-	players.add(playerTwo);
+		var bruhImg = loadImage('assets/player_Two.png');
+		playerTwo = createSprite(200, 400);
+		playerTwo.addImage(bruhImg);
+		players.add(playerTwo);
 	
 	//stix2
-	var stixImg = loadImage('assets/stix.png');
-	stix2 = createSprite(200, 400);
-	stix2.addImage(stixImg);
-	stix.add(stix2);
+		var stixImg = loadImage('assets/stix.png');
+		stix2 = createSprite(200, 400);
+		stix2.addImage(stixImg);
+		stix.add(stix2);
 	
 	
 	
@@ -68,27 +78,33 @@ function draw(){
 	drawSprites();
 	
 	//collisions
-	//playerOne
-	playerOne.collide(stage);
-	playerOne.displace(playerTwo);
-	stix1.setCollider("rectangle", cOffOne, 5, 2, 70);
-	stix1.debug = true;
-	
-	//playerTwo
-	playerTwo.collide(stage);
-	playerTwo.displace(playerOne);
-	stix2.setCollider("rectangle", cOffTwo, 10, 2, 70);
-	stix2.debug = true;
-	
-	
-	//stix tracking
-	//playerOne
-	stix1.position.x = playerOne.position.x + sOffOne;
-	stix1.position.y = playerOne.position.y;
-	
-	//playerTwo
-	stix2.position.x = playerTwo.position.x + sOffTwo;
-	stix2.position.y = playerTwo.position.y;
+		//playerOne
+			playerOne.collide(stage);
+			playerOne.displace(playerTwo);
+			hitOne.setCollider("rectangle", cOffOne, 5, 2, 70);
+			hitOne.debug = true;
+		
+		//playerTwo
+			playerTwo.collide(stage);
+			playerTwo.displace(playerOne);
+			hitTwo.setCollider("rectangle", cOffTwo, 10, 2, 70);
+			hitTwo.debug = true;
+		
+		
+		//sprite tracking
+		//backs
+			//one
+			hitOne.position =  playerOne.position;
+			//two
+			hitTwo.position = playerTwo.position;
+	//stix
+		//playerOne
+		stix1.position.x = playerOne.position.x + sOffOne;
+		stix1.position.y = playerOne.position.y;
+		
+		//playerTwo
+		stix2.position.x = playerTwo.position.x + sOffTwo;
+		stix2.position.y = playerTwo.position.y;
 	
 	//playerOne contorls
 		//gravity
@@ -111,6 +127,7 @@ function draw(){
 			playerOne.velocity.x += -5;
 			playerOne.mirrorX(-1);
 			sOffOne = (-42);
+			cOffOne = (23);
 		}
 		if(keyWentUp(LEFT_ARROW)){
 			playerOne.velocity.x -= -5;
@@ -121,6 +138,7 @@ function draw(){
 			playerOne.velocity.x += 5;
 			playerOne.mirrorX(1);
 			sOffOne = (42);
+			cOffOne = (-23);
 		}
 		if(keyWentUp(RIGHT_ARROW)){
 			playerOne.velocity.x -= 5;
@@ -147,6 +165,7 @@ function draw(){
 			playerTwo.velocity.x += -5;
 			playerTwo.mirrorX(-1);
 			sOffTwo = (-42);
+			cOffTwo = (23);
 		}
 		if(keyWentUp('a')){
 			playerTwo.velocity.x -= -5;
@@ -157,12 +176,18 @@ function draw(){
 			playerTwo.velocity.x += 5;
 			playerTwo.mirrorX(1);
 			sOffTwo = (42);
+			cOffTwo = (-23);
 		}
 		if(keyWentUp('d')){
 			playerTwo.velocity.x -= 5;
 		}
 	
-	
+		//perishing
+		if(stix2.overlap(hitOne)){
+			 
+		}
+		
+		
 		//gravity & collision fixes
 		if(playerOne.overlap(stage)){
 			GRAVITY = 0;

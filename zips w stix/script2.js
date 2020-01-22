@@ -1,7 +1,11 @@
 var playerOne;
 var playerTwo;
 var stix1;
+var sOffOne = -42;
+var cOffOne;
 var stix2;
+var sOffTwo = 42;
+var cOffTwo;
 var GRAVITY = 0.3;
 var GRAVITY2 = 0.3;
 
@@ -67,12 +71,24 @@ function draw(){
 	//playerOne
 	playerOne.collide(stage);
 	playerOne.displace(playerTwo);
+	stix1.setCollider("rectangle", cOffOne, 5, 2, 70);
+	stix1.debug = true;
 	
 	//playerTwo
 	playerTwo.collide(stage);
 	playerTwo.displace(playerOne);
+	stix2.setCollider("rectangle", cOffTwo, 10, 2, 70);
+	stix2.debug = true;
 	
 	
+	//stix tracking
+	//playerOne
+	stix1.position.x = playerOne.position.x + sOffOne;
+	stix1.position.y = playerOne.position.y;
+	
+	//playerTwo
+	stix2.position.x = playerTwo.position.x + sOffTwo;
+	stix2.position.y = playerTwo.position.y;
 	
 	//playerOne contorls
 		//gravity
@@ -94,6 +110,7 @@ function draw(){
 		if(keyWentDown(LEFT_ARROW)){
 			playerOne.velocity.x += -5;
 			playerOne.mirrorX(-1);
+			sOffOne = (-42);
 		}
 		if(keyWentUp(LEFT_ARROW)){
 			playerOne.velocity.x -= -5;
@@ -103,12 +120,13 @@ function draw(){
 		if(keyWentDown(RIGHT_ARROW)){
 			playerOne.velocity.x += 5;
 			playerOne.mirrorX(1);
+			sOffOne = (42);
 		}
 		if(keyWentUp(RIGHT_ARROW)){
 			playerOne.velocity.x -= 5;
 		}
 		
-	//playerTwo gravity
+	//playerTwo controls
 		//gravity
 		playerTwo.velocity.y += GRAVITY2;
 		
@@ -128,6 +146,7 @@ function draw(){
 		if(keyWentDown('a')){
 			playerTwo.velocity.x += -5;
 			playerTwo.mirrorX(-1);
+			sOffTwo = (-42);
 		}
 		if(keyWentUp('a')){
 			playerTwo.velocity.x -= -5;
@@ -137,6 +156,7 @@ function draw(){
 		if(keyWentDown('d')){
 			playerTwo.velocity.x += 5;
 			playerTwo.mirrorX(1);
+			sOffTwo = (42);
 		}
 		if(keyWentUp('d')){
 			playerTwo.velocity.x -= 5;
@@ -144,13 +164,13 @@ function draw(){
 	
 	
 		//gravity & collision fixes
-		if(playerOne.overlap(stage) || playerOne.overlap(players)){
+		if(playerOne.overlap(stage)){
 			GRAVITY = 0;
 		}else{
 			GRAVITY = 0.3;
 		}
 		
-		if(playerTwo.overlap(stage) || playerTwo.overlap(players)){
+		if(playerTwo.overlap(stage)){
 			GRAVITY2 = 0;
 		}else{
 			GRAVITY2 = 0.3;

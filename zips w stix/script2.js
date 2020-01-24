@@ -4,6 +4,7 @@ var hitOne;
 var sOffOne = -42;
 var cOffOne = 23;
 var GRAVITY = 0.3;
+var blueWin;
 
 var playerTwo;
 var stix2;
@@ -11,6 +12,7 @@ var hitTwo;
 var sOffTwo = 42;
 var cOffTwo = -23;
 var GRAVITY2 = 0.3;
+var orWin;
 
 var STAGE_BOTTOM;
 var STAGE_LEFT;
@@ -67,7 +69,14 @@ function setup(){
 		stix2 = createSprite(200, 400);
 		stix2.addImage(stixImg);
 		stix.add(stix2);
-	
+		
+	//win messages
+		var bWImg = loadImage('assets/victory_blue.png');
+		
+ 		var oWImg = loadImage('assets/victory_orange.png');
+		orWin = createSprite(400, 500);
+		orWin.addImage(oWImg);
+		stage.add(orWin); 
 	
 	
 }
@@ -184,7 +193,7 @@ function draw(){
 	
 		//perishing
 		if(stix2.overlap(hitOne)){
-			 
+		
 		}
 		
 		

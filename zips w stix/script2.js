@@ -7,6 +7,8 @@ var sOffOne = -42;
 var cOffOne = 23;
 var GRAVITY = 0.3;
 var blueWins = 0;
+var vicroyblue;
+var vicroyorange;
 
 var playerTwo;
 var stix2;
@@ -39,6 +41,7 @@ function setup(){
 		stage = new Group();
 		players = new Group();
 		stix = new Group();
+		stage0G = new Group();
 	
 	//stage
 		STAGE_BOTTOM = createSprite(400, 600, 700, 50);
@@ -51,7 +54,9 @@ function setup(){
 		stage.add(STAGE_RIGHT);
 		
 		STAGE_Top = createSprite(400, 0, 1000, 1);
-		stage.add(STAGE_Top);
+		stage0G.add(STAGE_Top);
+		
+		
 	
 	//playerOne
 		var playerOneImg = loadImage('assets/player_One.png');
@@ -117,11 +122,13 @@ function draw(){
 	//collisions
 	//playerOne
 			playerOne.collide(stage);
+			playerOne.collide(stage0G);
 			//playerOne.displace(playerTwo);
 			hitOne.setCollider("rectangle", cOffOne, 5, 2, 70);
 			
 	//playerTwo
 			playerTwo.collide(stage);
+			playerTwo.collide(stage0G);
 			//playerTwo.displace(playerOne);
 			hitTwo.setCollider("rectangle", cOffTwo, 10, 2, 70);
 			
@@ -244,6 +251,7 @@ function draw(){
 			if(stix1.overlap(hitTwo)){
 				playerTwo.remove();
 				stix2.remove()
+				
 			}
 		}else{
 			if(stix2.overlap(hitOne)){
@@ -251,6 +259,17 @@ function draw(){
 				stix1.remove()
 			}
 		}
+		
+		if(playerOne.position.y >= 800){
+			playerOne.remove();
+			stix1.remove();
+		}
+		
+			if(playerTwo.position.y >= 800){
+			playerTwo.remove();
+			stix2.remove();
+		}
+	
 	
 		
 		//gravity & collision fixes
@@ -265,5 +284,4 @@ function draw(){
 		}else{
 			GRAVITY2 = 0.3;
 		}
-	
 }

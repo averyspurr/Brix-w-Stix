@@ -17,7 +17,6 @@ var sOffTwo = 42;
 var cOffTwo = -23;
 var GRAVITY2 = 0.3;
 var orWins = 0;
-
 var STAGE_BOTTOM;
 var STAGE_LEFT;
 var STAGE_RIGHT;
@@ -89,8 +88,10 @@ function setup(){
 		stix2.addImage(stixImg);
 		stix.add(stix2);
 		
-	
-	
+		
+	//vic roy
+	ovic = loadImage('assets/victory_blue');
+	victoryorange = createSprite(400, 100, 0, 0);
 }
 
 
@@ -270,7 +271,11 @@ function draw(){
 			stix2.remove();
 		}
 	
-	
+		//orag
+			if(keyWentDown('o')){
+				bgImg = loadImage("assets/annoyingorange.png");
+				bg.addImage(bgImg);
+			}
 		
 		//gravity & collision fixes
 		if(playerOne.overlap(stage)){

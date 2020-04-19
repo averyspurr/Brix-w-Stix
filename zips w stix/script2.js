@@ -1,5 +1,3 @@
-var bg;
-var lastMovement;
 var playerOne;
 var stix1;
 var hitOne;
@@ -7,8 +5,7 @@ var sOffOne = -42;
 var cOffOne = 23;
 var GRAVITY = 0.3;
 var blueWins = 0;
-var vicroyblue;
-var vicroyorange;
+
 
 var playerTwo;
 var stix2;
@@ -17,9 +14,17 @@ var sOffTwo = 42;
 var cOffTwo = -23;
 var GRAVITY2 = 0.3;
 var orWins = 0;
+
+
 var STAGE_BOTTOM;
 var STAGE_LEFT;
 var STAGE_RIGHT;
+
+var vicroyBlue;
+var vicroOrange;
+
+var bg;
+var lastMovement;
 
 
 
@@ -27,7 +32,7 @@ function setup(){
 	createCanvas(800, 800);
 	
 	
-	// bg = loadImage('assets/stagebackground.png');
+	// bg
 	
 		var bgImg = loadImage('assets/stagebackground.png');
 		bg = createSprite(400, 400);
@@ -62,6 +67,12 @@ function setup(){
 		playerOne = createSprite(600, 400);
 		playerOne.addImage(playerOneImg);
 		players.add(playerOne);
+		
+		//win
+			var bWinImg = loadImage('assets/victory_blue.png');
+			vicroyBlue = createSprite(400, 400);
+			vicroyBlue.addImage(bWinImg)
+			vicroyBlue.scale = 0;
 	
 	//back hit boxes
 		//one
@@ -88,10 +99,12 @@ function setup(){
 		stix2.addImage(stixImg);
 		stix.add(stix2);
 		
+		//win
+			var oWinImg = loadImage('assets/victory_orange.png');
+			vicroyOr = createSprite(400, 400);
+			vicroyOr.addImage(oWinImg)
+			vicroyOr.scale = 0;
 		
-	//vic roy
-	ovic = loadImage('assets/victory_blue');
-	victoryorange = createSprite(400, 100, 0, 0);
 }
 
 
@@ -248,16 +261,16 @@ function draw(){
 	
 		//perishing
 		//If player one moved last, then player two loses
-		if(lastMovement == 1){
-			if(stix1.overlap(hitTwo)){
+		
+		if(stix1.overlap(hitTwo) && stix2.overlap(hitOne)){
+			if(lastMovement == 1){
 				playerTwo.remove();
-				stix2.remove()
-				
-			}
-		}else{
-			if(stix2.overlap(hitOne)){
+				stix2.remove();
+				vicroyBlue.scale = 1;
+			}else{
 				playerOne.remove();
-				stix1.remove()
+				stix1.remove();
+				vicroyOr.scale = 1;
 			}
 		}
 		

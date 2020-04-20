@@ -69,10 +69,17 @@ function setup(){
 		players.add(playerOne);
 		
 		//win
-			var bWinImg = loadImage('assets/victory_blue.png');
-			vicroyBlue = createSprite(400, 400);
-			vicroyBlue.addImage(bWinImg)
-			vicroyBlue.scale = 0;
+		var bWinImg = loadImage('assets/victory_blue.png');
+		vicroyBlue = createSprite(400, 200);
+		vicroyBlue.addImage(bWinImg)
+		vicroyBlue.scale = 0;
+			
+		//stix1
+		var stixImg = loadImage('assets/stix.png');
+		stix1 = createSprite(600, 400);
+		stix1.addImage(stixImg);
+		stix.add(stix1);
+	
 	
 	//back hit boxes
 		//one
@@ -81,29 +88,23 @@ function setup(){
 		//two
 		hitTwo = createSprite(200, 400, 0, 0);
 
-	//stix1
-		var stixImg = loadImage('assets/stix.png');
-		stix1 = createSprite(600, 400);
-		stix1.addImage(stixImg);
-		stix.add(stix1);
-	
 	//playerTwo
 		var bruhImg = loadImage('assets/player_Two.png');
 		playerTwo = createSprite(200, 400);
 		playerTwo.addImage(bruhImg);
 		players.add(playerTwo);
 	
-	//stix2
+		//stix2
 		var stixImg = loadImage('assets/stix.png');
 		stix2 = createSprite(200, 400);
 		stix2.addImage(stixImg);
 		stix.add(stix2);
 		
 		//win
-			var oWinImg = loadImage('assets/victory_orange.png');
-			vicroyOr = createSprite(400, 400);
-			vicroyOr.addImage(oWinImg)
-			vicroyOr.scale = 0;
+		var oWinImg = loadImage('assets/victory_orange.png');
+		vicroyOr = createSprite(400, 200);
+		vicroyOr.addImage(oWinImg)
+		vicroyOr.scale = 0;
 		
 }
 
@@ -264,24 +265,25 @@ function draw(){
 		
 		if(stix1.overlap(hitTwo) && stix2.overlap(hitOne)){
 			if(lastMovement == 1){
-				playerTwo.remove();
-				stix2.remove();
-				vicroyBlue.scale = 1;
+				blueWin();
 			}else{
-				playerOne.remove();
-				stix1.remove();
-				vicroyOr.scale = 1;
+				orWin();
+			}
+		}else{
+			if(stix1.overlap(hitTwo)){
+				blueWin();
+			}
+			if(stix2.overlap(hitOne)){
+				orWin();
 			}
 		}
 		
 		if(playerOne.position.y >= 800){
-			playerOne.remove();
-			stix1.remove();
+			orWin();
 		}
 		
-			if(playerTwo.position.y >= 800){
-			playerTwo.remove();
-			stix2.remove();
+		if(playerTwo.position.y >= 800){
+			blueWin();
 		}
 	
 		//orag
@@ -302,4 +304,16 @@ function draw(){
 		}else{
 			GRAVITY2 = 0.3;
 		}
+}
+
+function blueWin(){
+	playerTwo.remove();
+	stix2.remove();
+	vicroyBlue.scale = 2;
+}
+
+function orWin(){
+	playerOne.remove();
+	stix1.remove();
+	vicroyOr.scale = 2;
 }
